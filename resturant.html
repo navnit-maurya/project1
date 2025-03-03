@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navneet Foodie</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        :root {
+            --gradient: linear-gradient(45deg, #ff3366, #ff6b6b, #4834d4, #686de0);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --border: 1px solid rgba(255, 255, 255, 0.1);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.2rem 5%;
+            backdrop-filter: blur(12px);
+            background: var(--glass-bg);
+            border-bottom: var(--border);
+            z-index: 1000;
+            background: #0a0a0a;
+        }
+
+        .navbar.scrolled {
+            padding: 0.8rem 5%;
+            background: rgba(10, 10, 10, 0.95);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            @media (max-width: 600px) {
+    .navbar-container {
+        flex-direction: column;
+        min-width: auto;
+    }
+}
+
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 8s linear infinite;
+            background-size: 300%;
+            letter-spacing: -0.5px;
+        }
+
+        .logo:hover {
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+            letter-spacing: 0.3px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 2rem auto;
+        }
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 10rem;
+            margin-top: 100px;
+        }
+
+        .menu-item {
+            border: 1px solid #ddd;
+            text-align: center;
+            width: 400px;
+            height: 400px;
+        }
+
+        .menu-item img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .reservation-form {
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+
+        .reservation-form input,
+        .reservation-form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+        }
+
+        .location iframe {
+            width: 100%;
+            height: 400px;
+        }
+
+        .testimonials {
+            margin-top: 2rem;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .reviews-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Individual Review Box */
+        .box {
+            background: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Row Layout */
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Image Column */
+        .col1 img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ff9800;
+        }
+
+        /* Name and Review */
+        .col2 {
+            flex: 1;
+        }
+
+        .col2 h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .review {
+            margin: 5px 0 0;
+            font-size: 16px;
+            color: #ff9800;
+        }
+
+        /* Comment Section */
+        .col3 {
+            flex: 2;
+        }
+
+        .comment {
+            font-size: 14px;
+            color: #555;
+            font-style: italic;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .row {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .col1 img {
+                margin-bottom: 10px;
+            }
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info div {
+            padding: 1.5rem;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            background-color: #f5f5f5;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 0.5rem;
+            color: #444;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .contact-form button {
+            background-color: #e57373;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #d32f2f;
+        }
+
+        .location iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="navbar-container">
+            <div class="logo">Navneet Foodie</div>
+            <div class="Navneet">
+                <img src="." alt="" srcset="">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#menu">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#reservation">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container" id="menu">
+        <h2>Our Menu</h2>
+        <div class="menu">
+            <div class="menu-item">
+                <img src="D:\download (5).jpeg" alt="Dish 1">
+                <h3>Delicious Pasta</h3>
+                <h4>Easy American pasta that will drive everyone crazy</h4>
+                <p>&#8377;230</p>
+            </div>
+            <div class="menu-item">
+                <img src="D:\download (3).jpeg" alt="Dish 2">
+                <h3>Fresh Salad</h3>
+                <h4>This simple green salad recipe is healthy, refreshing, delicious</h4>
+                <p>&#8377;340</p>
+            </div>
+            <div class="menu-item">
+                <img src="D:\download (4).jpeg" alt="Dish 3">
+                <h3>Special Coffee</h3>
+                <h4>Made with specially sourced 100% arabica beans 
+                    our Premium Instant Coffee</h4>
+                <p>&#8377;200</p>
+            </div>
+            <div class="menu-item">
+                <img src="D:\download (6).jpeg" alt="Dish 4">
+                <h3>Samosa Chaat</h3>
+                <h4>Chole Samosa Chaat,An Ever-Popular 
+                    Roadside Treat In North India</h4>
+                <p>&#8377;150</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container" id="reservation">
+        <h2>Make a Reservation</h2>
+        <form class="reservation-form">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <input type="tel" placeholder="Phone Number">
+            <input type="datetime-local" required>
+            <textarea placeholder="Special Requests"></textarea>
+            <button type="submit">Reserve Now</button>
+        </form>
+    </div>
+
+    <div class="container" id="location">
+        <h2>Our Location</h2>
+        <div class="location">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.455956744855!2d-73.98513008459473!3d40.74881707932688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd14962cb17f53995!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1698777648312!5m2!1sen!2sus" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+
+    <div class="container" id="testimonials">
+        <h2>Customer Reviews</h2>
+        <div class="reviews-container">
+            <div class="box">
+                <div class="row">
+                    <div class="col1">
+                        <img src="D:\download (1).jpeg" alt="Reviewer 1">
+                    </div>
+                    <div class="col2">
+                        <h3>Varun Dhawan</h3>
+                        <p class="review">⭐⭐⭐⭐⭐</p>
+                    </div>
+                    <div class="col3">
+                        <p class="comment">"Amazing food! The service was great, and I loved the ambiance."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="row">
+                    <div class="col1">
+                        <img src="D:\download (2).jpeg" alt="Reviewer 2">
+                    </div>
+                    <div class="col2">
+                        <h3>Salman Khan</h3>
+                        <p class="review">⭐⭐⭐⭐⭐</p>
+                    </div>
+                    <div class="col3">
+                        <p class="comment">"One of the best dining experiences I've ever had! Highly recommended."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="row">
+                    <div class="col1">
+                        <img src="D:\download.jpeg" alt="Reviewer 3">
+                    </div>
+                    <div class="col2">
+                        <h3>Alia Bhatt</h3>
+                        <p class="review">⭐⭐⭐⭐⭐</p>
+                    </div>
+                    <div class="col3">
+                        <p class="comment">"Great taste, but the service was a bit slow. Overall, a good experience!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-info">
+            <div>
+                <h3>Address</h3>
+                <p>near BHU gate, varanasi</p>
+            </div>
+            <div>
+                <h3>Phone</h3>
+                <p>+91-8917734530</p>
+            </div>
+            <div>
+                <h3>Email</h3>
+                <p>nav@foodie.com</p>
+            </div>
+            <div>
+                <h3>Opening Hours</h3>
+                <p>Mon-Fri: 9am - 10pm<br>Sat-Sun: 10am - 11pm</p>
+            </div>
+        </div>
+        
+        <div class="location">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.455956744855!2d-73.98513008459473!3d40.74881707932688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd14962cb17f53995!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1698777648312!5m2!1sen!2sus" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <div class="contact-form">
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="tel" placeholder="Your Phone Number">
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Navneet Foodie. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // You can add JavaScript for form validation or other interactive features here.
+        window.addEventListener("scroll", function() {
+    const navbar = document.querySelector(".navbar");
+    navbar.classList.toggle("scrolled", window.scrollY > 50);
+});
+
+    </script>
+
+</body>
+</html>
